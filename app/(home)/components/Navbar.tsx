@@ -1,5 +1,5 @@
 "use client"
-import { ModeToggle } from "@/components/mode/mode-toogle"
+import { ModeToggle } from "@/config/mode/mode-toogle"
 import Logo from "./Logo"
 import { Button } from "@/components/ui/button"
 import { useScrolled } from "@/hooks/useScrolled"
