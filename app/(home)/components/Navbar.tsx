@@ -13,8 +13,8 @@ const Navbar = () => {
     <div className={cn("z-50 bg-slate-900 fixed top-0 flex items-center w-full p-6 justify-between", scrolled && "border-b shadow-sm")}>
       <Logo />
       <div className="flex items-center gap-x-2">
-        <Button variant={"ghost"}>Login</Button>
-        <Button variant={"link"}>Get Notion Free Trital</Button>
+        <Button variant={"ghost"} className="bg-white text-black rounded">Login</Button>
+        <Button variant={"link"} className="bg-green-600 rounded ">Get Notion Free Trital</Button>
         <ModeToggle  />
       </div>
     </div>
