@@ -1,9 +1,18 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { Loader } from "@/config/loader/loader"
+import { SignInButton, UserButton } from "@clerk/clerk-react"
+import { useConvexAuth } from "convex/react"
+import { ArrowRight, CornerDownRight } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
+
 
 
 const Hero = () => {
+    const {isAuthenticated,isLoading} = useConvexAuth()
+    
   return (
    <>
     <div className="max-w-3xl space-y-4">
@@ -14,14 +23,36 @@ const Hero = () => {
         Turn ideas into action
         with Notion’s AI-powered workspace.
         </h3>
-        <Button>
-            Gent Notion Free
-            <ArrowRight className="h-4 w-4 ml-2" />
-        </Button>
-        <Button className="bg-blue-500 rounded">
+        {isLoading && 
+         <div className="w-full flex justify-center items-center">
+              <Loader/>
+         </div>
+      }
+        {isAuthenticated && !isLoading && (
+          <>
+           <Button className="bg-white text-black rounded hover:text-white" asChild size={'sm'}>
+            <Link href={'/document'}>
+                   Space Notion <ArrowRight  />
+            </Link>           
+           </Button>
+          </>
+        )}
+        {!isAuthenticated && !isLoading &&(
+            <>
+             <SignInButton mode={'modal'}>
+                <Button className="bg-green-600 rounded ">
+                <CornerDownRight />    Get Notion Free & Request Demo free trital 
+                </Button>
+             </SignInButton>
+            </> 
+        )}
+        {/***
+         *   <Button className="bg-blue-500 rounded">
             Request Demo
             <ArrowRight className="h-4 w-4 ml-2" />
-        </Button>
+        </Button> 
+         */}
+     
     </div>
     <div className="flex flex-col items-center justify-center max-w-5xl">
         <div className="flex items-center">

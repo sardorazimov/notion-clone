@@ -1,4 +1,9 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
+import { Loader } from "@/config/loader/loader";
+import { SignInButton } from "@clerk/clerk-react";
+import { useConvexAuth } from "convex/react";
 import { Check } from "lucide-react";
 
 interface PricingCardProps{
@@ -15,6 +20,11 @@ const PricingCard = ({
  options,
  price,
 }:PricingCardProps) => {
+
+  const {isLoading,isAuthenticated} = useConvexAuth();
+
+
+
   return (
     <div className="flex flex-col p-6 mx-auto max-w-lg text-center
      text-gray-900 bg-white rounded-lg border border-gray-100 
@@ -30,7 +40,19 @@ const PricingCard = ({
         </span>
         <span className="text-gray-500 dark:text-gray-400">/month</span>
       </div>
-      <Button className="bg-white rounded text-black hover:text-white"> Get Satarted</Button>
+      {isLoading &&(
+        <div className="w-full flex justify-center items-center">
+          <Loader />
+        </div>
+      )}
+      {isAuthenticated && !isLoading &&  <Button  >Get Start</Button> }
+
+      {!isAuthenticated && !isLoading &&(
+        <SignInButton mode={'modal'}>
+          <Button className="bg-white text-black rounded hover:bg-gray-400">Log in</Button>
+        </SignInButton>
+      )}
+
       <ul role="list"className="space-y-4 text-left mt-8">
       {options.split(", ").map((option) => (
           <li key={option} className="flex items-center space-x-3">
